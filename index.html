@@ -82,7 +82,7 @@
 </head>
 <body>
     <header>
-        <h1>Futbol-istas!</h1>
+        <h1>Shop Futbol-istas!</h1>
     </header>
     <nav>
         <a href="#" onclick="showSection('shop')">Shop</a>
@@ -93,35 +93,36 @@
     <main>
         <!-- Shop Section -->
         <section id="shop" class="active">
-            <h2>Shop Soccer Equipment</h2>
+            <h2>Equpiment and Merch</h2>
             <div class="shop-grid" id="product-list">
                 <div class="product">
-                    <img src="gk-gloves.jpg" alt="Goalie Gloves">
-                    <h3>Goalie Gloves</h3>
-                    <p>Price: $40</p>
-                    <p>Quantity: <span id="ball-qty">15</span></p>
-                    <button onclick="addToCart('Goalie Gloves', 40, 'ball-qty')">Add to Cart</button>
-                </div>
-                <div class="product">
                     <img src="soccercleats.jpeg" alt="Soccer Cleats">
-                    <h3>Soccer Shoes</h3>
+                    <h3>Soccer Ball</h3>
                     <p>Price: $70</p>
-                    <p>Quantity: <span id="shoes-qty">10</span></p>
-                    <button onclick="addToCart('Soccer Cleats', 70, 'shoes-qty')">Add to Cart</button>
+                    <p>Quantity: <span id="ball-qty">15</span></p>
+                    <button onclick="addToCart('Soccer Cleats', 70, 'ball-qty')">Add to Cart</button>
                 </div>
                 <div class="product">
-                    <img src="jersey.jpeg" alt="Soccer Jersey">
+                    <img src="soccercleats.jpg" alt="Goalie Gloves">
+                    <h3>Soccer Shoes</h3>
+                    <p>Price: $50</p>
+                    <p>Quantity: <span id="shoes-qty">10</span></p>
+                    <button onclick="addToCart('Goalie Cloves', 50, 'shoes-qty')">Add to Cart</button>
+                </div>
+                <div class="product">
+                    <img src="jersey.jpeg" alt="Venezia Jersey">
                     <h3>Soccer Jersey</h3>
                     <p>Price: $50</p>
                     <p>Quantity: <span id="jersey-qty">25</span></p>
-                    <button onclick="addToCart('Soccer Jersey', 35, 'jersey-qty')">Add to Cart</button>
+                    <button onclick="addToCart('Venezia Jersey', 50, 'jersey-qty')">Add to Cart</button>
                 </div>
-                 <div class="product">
-                    <img src="cones.jpeg" alt="Training Cones">
-                    <h3>Training Cones</h3>
+            </div>
+             <div class="product">
+                    <img src="cones.jpeg" alt="Soccer Cones">
+                    <h3>Soccer Cones</h3>
                     <p>Price: $30</p>
-                    <p>Quantity: <span id="cones-qty">30</span></p>
-                    <button onclick="addToCart('Training Cones', 30, 'cones-qty')">Add to Cart</button>
+                    <p>Quantity: <span id="cones-qty">25</span></p>
+                    <button onclick="addToCart('Soccer Cones', 30, 'cones-qty')">Add to Cart</button>
                 </div>
             </div>
         </section>
@@ -145,53 +146,6 @@
                 <input type="password" id="login-password" required><br><br>
                 <button onclick="login()">Login</button>
             </form>
-            <!-- Register Section -->
-<section class="form-section" id="register" style="display:none;">
-    <h2>Register</h2>
-    <form id="register-form" onsubmit="return false;">
-        <label for="register-name">Name:</label>
-        <input type="text" id="register-name" required><br><br>
-        <label for="register-email">Email:</label>
-        <input type="email" id="register-email" required><br><br>
-        <label for="register-password">Password:</label>
-        <input type="password" id="register-password" required><br><br>
-        <button onclick="registerUser()">Register</button>
-    </form>
-</section>
-
-<script>
-    // Register User Functionality
-    function registerUser() {
-        const name = document.getElementById("register-name").value;
-        const email = document.getElementById("register-email").value;
-        const password = document.getElementById("register-password").value;
-
-        if (name && email && password) {
-            // Example: Storing user data in local storage
-            const users = JSON.parse(localStorage.getItem("users")) || [];
-            users.push({ name, email, password });
-            localStorage.setItem("users", JSON.stringify(users));
-
-            alert("Registration successful! You can now log in.");
-            document.getElementById("register-form").reset();
-        } else {
-            alert("Please fill in all fields.");
-        }
-    }
-
-    // Navigation between Login and Register
-    function showRegister() {
-        document.getElementById("login").style.display = "none";
-        document.getElementById("register").style.display = "block";
-    }
-
-    function showLogin() {
-        document.getElementById("login").style.display = "block";
-        document.getElementById("register").style.display = "none";
-    }
-</script>
-<p>Don't have an account? <button onclick="showRegister()">Register here</button></p>
-
         </section>
 
         <!-- Admin Section -->
@@ -247,18 +201,12 @@
             }
         }
 
-       function removeFromCart(index) {
-    const removed = cart.splice(index, 1)[0]; // Remove the item from the cart array
-    const qtyId = removed.item.toLowerCase().replace(/ /g, "-") + "-qty"; // Derive the quantity ID
-    const qtyElem = document.getElementById(qtyId);
-
-    if (qtyElem) {
-        qtyElem.textContent = parseInt(qtyElem.textContent) + 1; // Increase the stock quantity
-    }
-
-    updateCart(); // Refresh the cart display
-}
-
+        function removeFromCart(index) {
+            const removed = cart.splice(index, 1)[0];
+            const qtyId = removed.item.toLowerCase().replace(" ", "-") + "-qty";
+            const qtyElem = document.getElementById(qtyId);
+            qtyElem.textContent = parseInt(qtyElem.textContent) + 1;
+            updateCart();
         }
 
         function checkout() {
