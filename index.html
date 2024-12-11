@@ -145,6 +145,53 @@
                 <input type="password" id="login-password" required><br><br>
                 <button onclick="login()">Login</button>
             </form>
+            <!-- Register Section -->
+<section class="form-section" id="register" style="display:none;">
+    <h2>Register</h2>
+    <form id="register-form" onsubmit="return false;">
+        <label for="register-name">Name:</label>
+        <input type="text" id="register-name" required><br><br>
+        <label for="register-email">Email:</label>
+        <input type="email" id="register-email" required><br><br>
+        <label for="register-password">Password:</label>
+        <input type="password" id="register-password" required><br><br>
+        <button onclick="registerUser()">Register</button>
+    </form>
+</section>
+
+<script>
+    // Register User Functionality
+    function registerUser() {
+        const name = document.getElementById("register-name").value;
+        const email = document.getElementById("register-email").value;
+        const password = document.getElementById("register-password").value;
+
+        if (name && email && password) {
+            // Example: Storing user data in local storage
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+            users.push({ name, email, password });
+            localStorage.setItem("users", JSON.stringify(users));
+
+            alert("Registration successful! You can now log in.");
+            document.getElementById("register-form").reset();
+        } else {
+            alert("Please fill in all fields.");
+        }
+    }
+
+    // Navigation between Login and Register
+    function showRegister() {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("register").style.display = "block";
+    }
+
+    function showLogin() {
+        document.getElementById("login").style.display = "block";
+        document.getElementById("register").style.display = "none";
+    }
+</script>
+<p>Don't have an account? <button onclick="showRegister()">Register here</button></p>
+
         </section>
 
         <!-- Admin Section -->
@@ -200,12 +247,18 @@
             }
         }
 
-        function removeFromCart(index) {
-            const removed = cart.splice(index, 1)[0];
-            const qtyId = removed.item.toLowerCase().replace(" ", "-") + "-qty";
-            const qtyElem = document.getElementById(qtyId);
-            qtyElem.textContent = parseInt(qtyElem.textContent) + 1;
-            updateCart();
+       function removeFromCart(index) {
+    const removed = cart.splice(index, 1)[0]; // Remove the item from the cart array
+    const qtyId = removed.item.toLowerCase().replace(/ /g, "-") + "-qty"; // Derive the quantity ID
+    const qtyElem = document.getElementById(qtyId);
+
+    if (qtyElem) {
+        qtyElem.textContent = parseInt(qtyElem.textContent) + 1; // Increase the stock quantity
+    }
+
+    updateCart(); // Refresh the cart display
+}
+
         }
 
         function checkout() {
